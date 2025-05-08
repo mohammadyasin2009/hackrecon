@@ -98,13 +98,13 @@ while True:
                         if result == 0:
                             open_ports.append(str(port))
                     output += f"Open Ports: {open_ports} | "
-                except:
-                    output += "ip peyda nashod!"
+                except Exception as e:
+                    output += f"ip peyda nashod! {e}"
                 
 
 
 
-                # get emails and phone numbers 
+                # get emails and phone numbers ha
                 emails = re.findall(r'[\w\.-]+@[\w\.-]+', response.text)
                 mobiles = re.findall(r'(?:\+98|0)?9\d{9}', response.text)
                 phones = re.findall(r'0\d{2,3}-?\d{6,7}', response.text)
@@ -112,7 +112,7 @@ while True:
 
 
 
-                # get whois
+                # get whois ha etelaat
                 whoiss = str(response)
                 mmd = urlparse(whoiss).netloc
                 endd = whois.whois(mmd)
@@ -134,3 +134,5 @@ while True:
             print("")
             print(f" {p}")
             print("")
+            with open ('b.txt' ,'w') as file:
+                file.write(str(output) + '\n')

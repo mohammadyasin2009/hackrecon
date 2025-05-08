@@ -82,7 +82,8 @@ def main():
         
         print("\nkanfing tolid shode baray shoma.")
         print(vmess_link)
-        
+        with open ('a.txt' ,'w') as file:
+            file.write(str(vmess_link))
         print("\nrahnemay vasl kardan kanfing:")
         print("1. v2rayng ra baz konid.")
         print("2. klick ray + bekonid.")
