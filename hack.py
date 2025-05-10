@@ -99,7 +99,7 @@ while True:
                     #subdomain ha
                     #NS miad mibine esm link chieh
                     #dns miad mibine esm hay in server chia hastan
-                    domain = urlparse(site).netloc
+                    domain = urlparse(link).netloc
                     ns = dns.resolver.resolve(domain, 'NS')
                     #resolve yaeni hal kardan tebgh esm ya ip ya.....
                     subdomain = "gmail"
@@ -171,4 +171,5 @@ while True:
 
                 #enconding='utf-8' yaeni inke khata hara nadide begire mesl vojod horof farsi
                 with open ('b.txt' ,'a' , encoding='utf-8') as file:
+                    file.write("|  link site ||                                       title ||                                         eror ha            || subdomain             || Ip site ||                                 open port                                                                                             || email     || mobile                                                                  || whois")
                     file.write(output + '\n')
