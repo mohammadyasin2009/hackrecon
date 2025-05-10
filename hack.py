@@ -153,6 +153,7 @@ while True:
                 print(f" {p}")
                 print("==========================================================================================================================")
                 print("")
+                print(":""")
 
                 #enconding='utf-8' yaeni inke khata hara nadide begire mesl vojod horof farsi
                 with open ('b.txt' ,'a' , encoding='utf-8') as file:
