@@ -2,9 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import socket
 from urllib.parse import urlparse
+import dns.resolver
 import re
 import whois
 import argparse
+#resolver yaeni peyda kardan
 #requests baray gereftan etelaat ya api site hast.
 #beautifulsoup baray gereftan html site hast ke maemolan ba requests miad.
 
@@ -91,9 +93,22 @@ while True:
 
 
 
+
+
+
                     #subdomain ha
-                    domain = urlparse(link).netloc
-                    output += f"| Domain ha: {domain} | "
+                    #NS miad mibine esm link chieh
+                    #dns miad mibine esm hay in server chia hastan
+                    domain = urlparse(site).netloc
+                    ns = dns.resolver.resolve(domain, 'NS')
+                    #resolve yaeni hal kardan tebgh esm ya ip ya.....
+                    subdomain = "gmail"
+                    try:
+                        # 'A' ip adress ipv4 hast
+                        answers = dns.resolver.resolve(subdomain + "." + domain , 'A')
+                        output += f"{subdomain}.{domain}"
+                    except:
+                        output += f"| ❌ domain peyda nashod! ❌ |"
                     
 
 
@@ -153,7 +168,6 @@ while True:
                 print(f" {p}")
                 print("==========================================================================================================================")
                 print("")
-                print(":""")
 
                 #enconding='utf-8' yaeni inke khata hara nadide begire mesl vojod horof farsi
                 with open ('b.txt' ,'a' , encoding='utf-8') as file:
