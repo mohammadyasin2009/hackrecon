@@ -5,7 +5,8 @@ from urllib.parse import urlparse
 import dns.resolver
 import re
 import whois
-import argparse
+#import argparse
+from urllib.parse import urljoin
 #resolver yaeni peyda kardan
 #requests baray gereftan etelaat ya api site hast.
 #beautifulsoup baray gereftan html site hast ke maemolan ba requests miad.
@@ -16,12 +17,15 @@ while True:
         def get_links(url):
             if (url.startswith('https://') or url.startswith('http://')):
                 site = requests.get(url)
+                #htmlparser tajzie mikone html site ro
                 soup = BeautifulSoup(site.text, 'html.parser')
                 linkha = []
                 for link in soup.find_all('a'):
+                    #href meghdar kamel link hast mesl https://example.com/about
                     href = link.get('href')
                     if href:
-                        linkha.append(href)
+                        kamel1 = urljoin(url, href)
+                        linkha.append(kamel1)
                     
                 link2 = []
                 for link in linkha: 
@@ -32,7 +36,8 @@ while True:
                             for link_tag in soup2.find_all('a'):
                                 href2 = link_tag.get('href')
                                 if href2:
-                                    link2.append(href2)
+                                    kamel2 = urljoin(link, href2)
+                                    link2.append(kamel2)
                         except:
                             continue
                 return linkha + link2
@@ -60,7 +65,7 @@ while True:
                 try:
 
                     # get titles ha
-                    site = requests.get(link)
+                    site = requests.get(link,verify=False)
                     soup = BeautifulSoup(site.text, 'html.parser')
                     title = soup.find("title")
                     if title:
@@ -155,21 +160,22 @@ while True:
 
 
 
-                except:
-                    output += f"| Error |"
+                except Exception as e:
+                    output += f"| Error | {e}"
                 print("")
 
 
 
-                p = argparse.ArgumentParser(output)
-                p.add_argument('--recon')
-                print("")
+                # p = argparse.ArgumentParser(output)
+                # p.add_argument('--recon')
+                # print("")
+
+
                 print("===========================================================================================================================")
-                print(f" {p}")
+                print(f" {output}")
                 print("==========================================================================================================================")
                 print("")
 
                 #enconding='utf-8' yaeni inke khata hara nadide begire mesl vojod horof farsi
                 with open ('b.txt' ,'a' , encoding='utf-8') as file:
-                    file.write("|  link site ||                                       title ||                                         eror ha            || subdomain             || Ip site ||                                 open port                                                                                             || email     || mobile                                                                  || whois")
                     file.write(output + '\n')
