@@ -107,7 +107,7 @@ while True:
                     domain = urlparse(link).netloc
                     ns = dns.resolver.resolve(domain, 'NS')
                     #resolve yaeni hal kardan tebgh esm ya ip ya.....
-                    subdomain = "gmail"
+                    subdomain = "www"
                     try:
                         # 'A' ip adress ipv4 hast
                         answers = dns.resolver.resolve(subdomain + "." + domain , 'A')
